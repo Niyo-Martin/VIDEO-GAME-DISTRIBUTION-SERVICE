@@ -1,0 +1,25 @@
+runtime: nodejs20
+
+instance_class: F2  # Increased memory and CPU
+
+env_variables:
+  MONGODB_URI: "mongodb+srv://niyomartin3:nn3ahPT6mfqJsh4W@cluster0.irjpwe3.mongodb.net/newgamedistribution?retryWrites=true&w=majority&appName=Cluster0"
+  NODE_ENV: "production"
+
+handlers:
+  # API routes
+  - url: /api/.*
+    secure: optional
+    script: auto
+
+  # Static assets
+  - url: /(.*\.(js|css|png|jpg|json|ico|svg))$
+    static_files: frontend/build/\1
+    upload: frontend/build/.*\.(js|css|png|jpg|json|ico|svg)$
+    secure: optional
+
+  # Catch-all for React Router
+  - url: /.*
+    static_files: frontend/build/index.html
+    upload: frontend/build/index.html
+    secure: optional
